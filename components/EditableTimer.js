@@ -6,6 +6,29 @@ import TimerForm from './TimerForm';
 class EditableTimer extends Component {
   state = { editFormOpen: false };
 
+  handleEditPress = () => {
+    this.openForm();
+  };
+
+  handleFormClose = () => {
+    this.closeForm();
+  };
+
+  handleSubmit = timer => {
+    const { onFormSubmit } = this.props;
+
+    onFormSubmit(timer);
+    this.closeForm();
+  };
+
+  closeForm = () => {
+    this.setState({ editFormOpen: false });
+  };
+
+  openForm = () => {
+    this.setState({ editFormOpen: true });
+  };
+
   render() {
     // Pull editFormOpen from state & all other attributes from props
     const { id, title, project, elapsed, isRunning } = this.props;
@@ -18,16 +41,19 @@ class EditableTimer extends Component {
           id={id}
           title={title}
           project={project}
+          onFormSubmit={this.handleSubmit}
+          onFormClose={this.handleFormClose}
         />
       );
     }
     return (
-      <TimerForm
+      <Timer
         id={id}
         title={title}
         project={project}
         elapsed={elapsed}
         isRunning={isRunning}
+        onEditPress={this.handleEditPress}
       />
     );
   }

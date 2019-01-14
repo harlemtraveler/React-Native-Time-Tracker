@@ -40,6 +40,26 @@ export default class App extends Component {
     });
   };
 
+  handleFormSubmit = attrs => {
+    const { timers } = this.state;
+
+    this.setState({
+      timers: timers.map(timer => {
+        if (timer.id === attrs.id) {
+          const { title, project } = attrs;
+
+          return {
+            ...timer,
+            title,
+            project,
+          };
+        }
+
+        return timer;
+      }),
+    });
+  };
+
   render() {
     const { timers } = this.state;
     return (
@@ -60,6 +80,7 @@ export default class App extends Component {
               project={project}
               elapsed={elapsed}
               isRunning={isRunning}
+              onFormSubmit={this.handleFormSubmit}
             />
           ))}
 
