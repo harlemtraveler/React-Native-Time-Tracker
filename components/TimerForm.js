@@ -3,17 +3,6 @@ import {StyleSheet, TextInput, Text, View } from 'react-native';
 import TimerButton from './TimerButton';
 
 class TimerForm extends Component {
-  /*
-    STATE - Use ternery to base on props value:
-
-    Since we check & define state based on props, we use constructor.
-    We're using constructor for state initialization instead of
-    defining state as a class property.
-    Also, we need to avoid initializing input values as undefined.
-    This is because input field values can NEVER be undefined.
-    This is why we used a ternery function to check props for an
-    existing value and to set to empty stateful string if none exist.
-  */
   constructor(props) {
     super(props);
 
@@ -34,8 +23,19 @@ class TimerForm extends Component {
     this.setState({ project });
   };
 
+  handleSubmit = () => {
+    const { onFormSubmit, id } = this.props;
+    const { title, project } = this.state;
+
+    onFormSubmit({
+      id,
+      title,
+      project,
+    });
+  };
+
   render() {
-    const { id } = this.props;
+    const { id, onFormClose } = this.props;
     const { title, project } = this.state;
 
     const submitText = id ? 'Update' : 'Create';
@@ -67,8 +67,18 @@ class TimerForm extends Component {
         </View>
 
         <View style={styles.buttonGroup}>
-          <TimerButton small color="#21BA45" title={submitText} />
-          <TimerButton small color="#DB2828" title="Cancel" />
+          <TimerButton
+            small
+            color="#21BA45"
+            title={submitText}
+            onPress={this.handleSubmit}
+          />
+          <TimerButton
+            small
+            color="#DB2828"
+            title="Cancel"
+            onPress={onFormClose}
+          />
         </View>
       </View>
     );
@@ -111,3 +121,15 @@ const styles = StyleSheet.create({
 });
 
 export default TimerForm;
+
+/*
+  STATE - Use ternery to base on props value:
+
+  Since we check & define state based on props, we use constructor.
+  We're using constructor for state initialization instead of
+  defining state as a class property.
+  Also, we need to avoid initializing input values as undefined.
+  This is because input field values can NEVER be undefined.
+  This is why we used a ternery function to check props for an
+  existing value and to set to empty stateful string if none exist.
+*/
