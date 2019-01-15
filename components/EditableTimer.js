@@ -31,7 +31,16 @@ class EditableTimer extends Component {
 
   render() {
     // Pull editFormOpen from state & all other attributes from props
-    const { id, title, project, elapsed, isRunning } = this.props;
+    const {
+      id,
+      title,
+      project,
+      elapsed,
+      isRunning,
+      onStopPress,
+      onStartPress,
+      onRemovePress
+    } = this.props;
     const { editFormOpen } = this.state;
 
     //
@@ -53,11 +62,13 @@ class EditableTimer extends Component {
         project={project}
         elapsed={elapsed}
         isRunning={isRunning}
+        onStopPress={onStopPress}
+        onStartPress={onStartPress}
+        onRemovePress={onRemovePress}
         onEditPress={this.handleEditPress}
       />
     );
   }
-
 }
 
 export default EditableTimer;
