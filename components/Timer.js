@@ -1,10 +1,23 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { StyleSheet, View, Text } from 'react-native';
 
 import { millisecondsToHuman } from '../utils/TimerUtils';
 import TimerButton from './TimerButton';
 
 class Timer extends Component {
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    project: PropTypes.string.isRequired,
+    elapsed: PropTypes.number.isRequired,
+    isRunning: PropTypes.bool.isRequired,
+    onEditPress: PropTypes.func.isRequired,
+    onRemovePress: PropTypes.func.isRequired,
+    onStartPress: PropTypes.func.isRequired,
+    onStopPress: PropTypes.func.isRequired,
+  };
+
   handleStartPress = () => {
     const { id, onStartPress } = this.props;
 
@@ -40,7 +53,7 @@ class Timer extends Component {
       <TimerButton
         color="#21BA45"
         title="Start"
-        onPress={this.handleStartPress} 
+        onPress={this.handleStartPress}
       />
     );
   }

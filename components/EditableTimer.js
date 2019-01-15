@@ -1,9 +1,22 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 // Components
 import Timer from './Timer';
 import TimerForm from './TimerForm';
 
 class EditableTimer extends Component {
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    project: PropTypes.string.isRequired,
+    elapsed: PropTypes.number.isRequired,
+    isRunning: PropTypes.bool.isRequired,
+    onFormSubmit: PropTypes.func.isRequired,
+    onRemovePress: PropTypes.func.isRequired,
+    onStartPress: PropTypes.func.isRequired,
+    onStopPress: PropTypes.func.isRequired,
+  };
+
   state = { editFormOpen: false };
 
   handleEditPress = () => {

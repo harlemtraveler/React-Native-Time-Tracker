@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import uuidv4 from 'uuid/v4';
 import {
+  Text,
+  View,
   StyleSheet,
   ScrollView,
-  Text,
-  View
+  KeyboardAvoidingView,
 } from 'react-native';
 // Components
 import { newTimer } from './utils/TimerUtils';
@@ -117,27 +118,33 @@ export default class App extends Component {
         <View style={styles.titleContainer}>
           <Text>Timers</Text>
         </View>
-        <ScrollView style={styles.timerList}>
-          <ToggleableTimerForm
-            onFormSubmit={this.handleCreateFormSubmit}
-          />
+        <KeyboardAvoidingView
+          behavior="padding"
+          style={styles.timerListContainer}>
 
-          {timers.map(({ title, project, id, elapsed, isRunning }) => (
-            <EditableTimer
-              key={id} // "key" is used by React Native for identification
-              id={id}
-              title={title}
-              project={project}
-              elapsed={elapsed}
-              isRunning={isRunning}
-              onStopPress={this.toggleTimer}
-              onStartPress={this.toggleTimer}
-              onFormSubmit={this.handleFormSubmit}
-              onRemovePress={this.handleRemovePress}
+          <ScrollView style={styles.timerList}>
+            <ToggleableTimerForm
+              onFormSubmit={this.handleCreateFormSubmit}
             />
-          ))}
 
-        </ScrollView>
+            {timers.map(({ title, project, id, elapsed, isRunning }) => (
+              <EditableTimer
+                key={id} // "key" is used by React Native for identification
+                id={id}
+                title={title}
+                project={project}
+                elapsed={elapsed}
+                isRunning={isRunning}
+                onStopPress={this.toggleTimer}
+                onStartPress={this.toggleTimer}
+                onFormSubmit={this.handleFormSubmit}
+                onRemovePress={this.handleRemovePress}
+              />
+            ))}
+
+          </ScrollView>
+
+        </KeyboardAvoidingView>
       </View>
     );
   }
@@ -157,6 +164,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  timerListContainer: {
+    flex: 1,
   },
   timerList: {
     paddingBottom: 15,
